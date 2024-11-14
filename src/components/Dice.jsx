@@ -8,66 +8,33 @@ import diceImage5 from "../assets/images/dice5.png";
 import diceImage6 from "../assets/images/dice6.png";
 
 export default function Dice() {
-	const [diceState, setDiceState] = useState(diceImage3);
-	//console.log(diceState);
+    const [diceState, setDiceState] = useState(diceImage3);
+    const [diceDisabled, setDiceDisabled] = useState(false)
 
-	// console.log(randomNumber);
-
-	const rollTheDice = () => {
-		const randomNumber = Math.floor(Math.random() * 6);
-		// console.log(randomNumber);
+    const rollTheDice = () => {
+        setDiceDisabled(true)
         setDiceState(diceEmpty)
-        const selectedDice = [diceImage1,diceImage2,diceImage3,diceImage4,diceImage5,diceImage6].slice(randomNumber,randomNumber+1)
-        // console.log(selectedDice);
+        const randomNumber = Math.floor(Math.random() * 6);
+        const selectedDice = [diceImage1, diceImage2, diceImage3, diceImage4, diceImage5, diceImage6].slice(randomNumber, randomNumber + 1)
         setTimeout(() => {
             setDiceState(selectedDice)
-            
+            setDiceDisabled(false)
         }, 1000);
-        /* 
-        setTimeout(() => {
-            switch (randomNumber) {
-                case 1:
-                    setDiceState(diceImage1);
-                    break;
-                case 2:
-                    setDiceState(diceImage2);
-                    break;
-                case 3:
-                    setDiceState(diceImage3);
-                    break;
-                case 4:
-                    setDiceState(diceImage4);
-                    break;
-                case 5:
-                    setDiceState(diceImage5);
-                    break;
-                case 6:
-                    setDiceState(diceImage6);
-                    break;
-                default:
-                    setDiceState(diceImage3);
-                    break;
-            }    
-        }, 1000); */
         
-	};
+        
+    };
 
-    //prevent double click
-    // const clickDice = () => {
-    //     setTimeout(() => {
-    //         rollTheDice()
-    //     }, 1200);
-    // }
+ 
 
-	return (
-		<div className="diceWrapper">
-			<img
-				onClick={() => {
-					rollTheDice();
-				}}
-				src={diceState}
-				alt=""
-			/>
-		</div>
-	);
+    return (
+        <div className="diceWrapper">
+            <img
+                onClick={
+                    diceDisabled ? () => {} : () => {rollTheDice()}
+                }
+                src={diceState}
+                alt=""
+            />
+        </div>
+    );
 }

@@ -10,7 +10,7 @@ export default function Counter() {
 		}
 	};
 	return (
-		<div>
+		<div className="counter">
 			<button
 				onClick={() => {
 					changeCount("minus");
